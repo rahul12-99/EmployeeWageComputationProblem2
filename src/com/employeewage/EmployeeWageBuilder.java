@@ -1,41 +1,34 @@
 package com.employeewage;
 
 public class EmployeeWageBuilder {
-    static final int IS_FULL_TIME = 1;
-    static final int EMP_RATE_PER_HOUR = 20;
-    static final int IS_PART_TIME = 2;
-    static final int NO_OF_WORKING_DAYS = 20;
-    static int employeeCheck(){
-        int empCheck = (int) Math.floor((Math.random() * 10) % 3);
-        return empCheck;
-    }
-    public int dailyWageOfEmployee() {
-        int empHrs = 0;
-        int totalHrs = 0;
-        int totalWage = 0;
+    public static final int IS_FULL_TIME = 1;
+    public static final int IS_PART_TIME = 2;
+
+    private static void dailyWageOfEmployee(String company, int wage, int numOfWorkingDays, int workingHourPerMonth) {
         int totalWorkingDays = 0;
-        while (totalWorkingDays < NO_OF_WORKING_DAYS) {
-            totalWorkingDays++;
-            switch (employeeCheck()) {
-                case IS_PART_TIME:
-                    empHrs = 4;
-                    break;
+        int totalEmpHrs = 0;
+        int totalWage, empHrs;
+        while (totalWorkingDays < numOfWorkingDays && totalEmpHrs < workingHourPerMonth) {
+            int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+            switch (empCheck) {
                 case IS_FULL_TIME:
                     empHrs = 8;
+                    break;
+                case IS_PART_TIME:
+                    empHrs = 4;
                     break;
                 default:
                     empHrs = 0;
             }
-            totalHrs+=empHrs;
-            System.out.println("Day: " + totalWorkingDays + " " + "Emp hr: " + totalHrs);
+            totalEmpHrs = totalEmpHrs + empHrs;
         }
-        totalWage = totalHrs * EMP_RATE_PER_HOUR;
-        return totalWage;
+        totalWage = totalEmpHrs * wage;
+        System.out.println("Employee Wage for " + company + " is = " + totalWage);
     }
 
     public static void main(String[] args) {
-        System.out.println("Welcome to Employee Wage Computation");
-        EmployeeWageBuilder employee = new EmployeeWageBuilder();
-        System.out.println("Total Wage: " + employee.dailyWageOfEmployee());
+        dailyWageOfEmployee("Reliance", 30, 2, 20);
+        dailyWageOfEmployee("V-Mart", 40, 4, 40);
+        dailyWageOfEmployee("D-Mart", 22, 3, 60);
     }
 }
