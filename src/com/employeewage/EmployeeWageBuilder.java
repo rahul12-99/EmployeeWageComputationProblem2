@@ -1,6 +1,7 @@
 package com.employeewage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EmployeeWageBuilder implements IEmployeeWage {
     public static final int IS_PART_TIME = 1;
@@ -8,6 +9,7 @@ public class EmployeeWageBuilder implements IEmployeeWage {
 
     private int numOfCompany = 0;
     ArrayList<CompanyEmployeeWage> companyEmpWageArray = new ArrayList<>();
+    HashMap<String, CompanyEmployeeWage> map = new HashMap<>();
     ArrayList<Integer> dailyEmpWageArray = new ArrayList<>();
 
     @Override
@@ -19,12 +21,17 @@ public class EmployeeWageBuilder implements IEmployeeWage {
     @Override
     public void computeEmployeeWage() {
         for (int i = 0; i < numOfCompany; i++) {
-            companyEmpWageArray.get(i).setTotalEmpWage(this.computeEmployeeWage(companyEmpWageArray.get(i)));
+            companyEmpWageArray.get(i).setTotalEmpWage(this.computeEmpWage(companyEmpWageArray.get(i)));
             System.out.println(companyEmpWageArray.get(i));
         }
     }
 
-    private int computeEmployeeWage(CompanyEmployeeWage companyEmpWage) {
+    @Override
+    public int getTotalWage(String Company) {
+        return map.get(Company).totalEmpWage;
+    }
+
+    private int computeEmpWage(CompanyEmployeeWage companyEmpWage) {
         int empHrs , totalWorkingDays = 0, totalEmpHrs = 0;
         while (totalEmpHrs <= companyEmpWage.maxHoursPerMonth &&
                 totalWorkingDays < companyEmpWage.noOfWorkingDays) {
