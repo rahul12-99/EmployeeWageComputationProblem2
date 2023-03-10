@@ -7,11 +7,10 @@ public class CompanyEmployeeWage {
     public final int maxHoursPerMonth;
     public int totalEmpWage;
 
-    public CompanyEmployeeWage(String company, int empRatePerHour,
-                          int numOfWorkingDays, int maxHoursPerMonth) {
+    public CompanyEmployeeWage(String company, int empRatePerHour, int noOfWorkingDays, int maxHoursPerMonth) {
         this.Company = company;
         this.empRatePerHour = empRatePerHour;
-        this.noOfWorkingDays = numOfWorkingDays;
+        this.noOfWorkingDays = noOfWorkingDays;
         this.maxHoursPerMonth = maxHoursPerMonth;
     }
 
