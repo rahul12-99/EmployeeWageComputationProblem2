@@ -8,10 +8,11 @@ public class EmployeeWageBuilder implements IEmployeeWage {
 
     private int numOfCompany = 0;
     ArrayList<CompanyEmployeeWage> companyEmpWageArray = new ArrayList<>();
+    ArrayList<Integer> dailyEmpWageArray = new ArrayList<>();
 
     @Override
-    public void addCompanyEmployeeWage(String Company, int empRatePerHour, int noOfWorkingDays, int maxHoursPerMonth) {
-        companyEmpWageArray.add(numOfCompany, new CompanyEmployeeWage(Company, empRatePerHour, noOfWorkingDays, maxHoursPerMonth));
+    public void addCompanyEmployeeWage(String Company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+        companyEmpWageArray.add(numOfCompany, new CompanyEmployeeWage(Company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth));
         numOfCompany++;
     }
 
@@ -40,9 +41,11 @@ public class EmployeeWageBuilder implements IEmployeeWage {
                     empHrs = 0;
             }
             totalEmpHrs += empHrs;
+            dailyEmpWageArray.add(empHrs * companyEmpWage.empRatePerHour);
         }
         return totalEmpHrs * companyEmpWage.empRatePerHour;
     }
+
 
     public static void main(String[] args) {
         EmployeeWageBuilder employeeWage = new EmployeeWageBuilder();
